@@ -11,7 +11,7 @@ public class PasswordGeneratorController {
 	static Logger LOG = LoggerFactory.getLogger(PasswordGeneratorController.class);
 
 	PasswordGeneratorView view = new PasswordGeneratorView();
-	PasswordGenerator model = new PasswordGenerator();
+	static PasswordGenerator model = new PasswordGenerator();
 
 	public void viewPasswordRequest() {
 		String password;
@@ -29,6 +29,10 @@ public class PasswordGeneratorController {
 		view.setController(this);
 		model.setController(this);
 
+	}
+	
+	public static void copy(String text){
+		PasswordGenerator.copy(text);
 	}
 
 	public int getMaxPasswordLength() {

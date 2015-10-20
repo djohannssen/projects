@@ -3,8 +3,6 @@ package View;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -47,15 +45,6 @@ public class PasswordGeneratorView extends JFrame implements ActionListener {
 		panel = new JPanel();
 		panel.setLayout(new GridLayout(0, 1));
 		textArea = new JTextField("A Textarea");
-		textArea.addMouseListener(new MouseAdapter() {
-			 @Override
-			  public void mouseClicked(MouseEvent e) {
-				 copy(textArea.getText());
-				 System.out.println(textArea.getText());
-			    textArea.setText("Passwort in Zwischenablage");
-			  }
-			});
-
 		minIntField = new JTextField("Min. Länge");
 		minIntField.addMouseListener(new MouseAdapter(){
 			 @Override
@@ -96,19 +85,7 @@ public class PasswordGeneratorView extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent actionEvent) {
 		controller.viewPasswordRequest();
-	}
-
-	public static void copy(String text) {
-		Clipboard clipboard = getSystemClipboard();
-
-		clipboard.setContents(new StringSelection(text), null);
-	}
-
-	private static Clipboard getSystemClipboard() {
-		Toolkit defaultToolkit = Toolkit.getDefaultToolkit();
-		Clipboard systemClipboard = defaultToolkit.getSystemClipboard();
-
-		return systemClipboard;
+		PasswordGeneratorController.copy(textArea.getText());
 	}
 
 	public String getPassword() {
