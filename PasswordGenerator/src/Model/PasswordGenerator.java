@@ -1,5 +1,8 @@
 package Model;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import Controller.PasswordGeneratorController;
 
 /**
@@ -9,6 +12,8 @@ import Controller.PasswordGeneratorController;
  *
  */
 public class PasswordGenerator {
+	
+	static Logger LOG = LoggerFactory.getLogger(PasswordGenerator.class);
 
 	PasswordGeneratorController controller;
 
@@ -18,8 +23,8 @@ public class PasswordGenerator {
 
 	private static String buchstaben = "a,A,b,B,c,C,d,D,e,E,f,F,g,G,h,H,i,I,j,J,k,K,l,L,m,M,n,N,o,O,p,P,q,Q,r,R,s,S,t,T,u,U,v,V,w,W,x,X,y,Y,z,Z";
 
-	private static int Max = 30;
-	private static int Min = 20;
+	private int Max = 20;
+	private int Min = 30;
 	
 	/**
 	 * Erzeugt ein Passwort.
@@ -27,12 +32,16 @@ public class PasswordGenerator {
 	 * @return Das Passwort.
 	 */
 	public String generatePassword() {
+		Max = controller.getMaxPasswordLength();
+		Min = controller.getMinPasswordLength();
+		
+		
 		String[] sonderzeichenArray = setUpArray(sonderzeichen);
 		String[] nummerArray = setUpArray(nummern);
 		String[] buchstabenArray = setUpArray(buchstaben);
 		String password = "";
 		
-		int passwordLength = Min + (int)(Math.random() * ((Max - Min) + 1));
+		int passwordLength = generatePasswordLength();
 		for(int i = 0; i < passwordLength; i++){
 			int randomArray = 0 + (int)(Math.random() * ((2 - 0)+ 1));
 			if(randomArray == 0){
@@ -47,6 +56,16 @@ public class PasswordGenerator {
 			}
 		}
 		return password;
+	}
+	
+	public int generatePasswordLength(){
+		if(Min < Max){
+			int length = Min + (int)(Math.random() * ((Max - Min) + 1));
+			return length;
+		}else{
+			System.out.println("Min war größer als Max");
+			return (10 + (int)(Math.random()) * ((30 - 20) + 1));
+		}
 	}
 
 	private String[] setUpArray(String string) {
