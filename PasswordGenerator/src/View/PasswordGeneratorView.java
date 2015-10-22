@@ -44,8 +44,8 @@ public class PasswordGeneratorView extends JFrame implements ActionListener {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		panel = new JPanel();
 		panel.setLayout(new GridLayout(0, 1));
-		textArea = new JTextField("A Textarea");
-		minIntField = new JTextField("Min. Länge");
+		textArea = new JTextField("Generiertes Passwort");
+		minIntField = new JTextField("20");
 		minIntField.addMouseListener(new MouseAdapter(){
 			 @Override
 			  public void mouseClicked(MouseEvent e) {
@@ -53,7 +53,7 @@ public class PasswordGeneratorView extends JFrame implements ActionListener {
 			    repaint();
 			  }
 		});
-		maxIntField = new JTextField("Max. Länge");
+		maxIntField = new JTextField("30");
 		maxIntField.addMouseListener(new MouseAdapter() {
 			 @Override
 			  public void mouseClicked(MouseEvent e) {
